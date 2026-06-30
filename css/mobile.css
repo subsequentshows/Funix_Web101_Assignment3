@@ -1,0 +1,168 @@
+@media (min-width: 320px) and (max-width: 519px) {
+
+	.nav-bar {
+		height: unset;
+		flex-wrap: wrap;
+		border-bottom: 1px solid #333;
+
+		.nav-item {
+			width: 100%;
+			padding: 15px;
+			justify-content: flex-start;
+			border: none;
+
+			&:first-child {
+				border: none;
+			}
+
+			&:nth-child(3) {
+				display: none;
+			}
+
+			/* i {
+				width: 100%;
+				text-align: center;
+				margin-bottom: 5px;
+			} */
+		}
+	}
+
+	.section-1 {
+    	#info {
+			.input-wrapper {
+				position: unset;
+				padding : 0;
+			}
+		}
+	}
+	
+
+	.section {
+		padding : 15px;
+		.section-title {
+			margin-top: 0;
+			padding: 0;
+		}
+	}
+
+	#target,
+	#info {
+		.section-title {
+			padding: 0;
+		}
+	}
+
+	.section-1 {
+		.section {
+			width: 100%;
+			padding: 15px;
+		}
+
+		
+	}
+
+	.section-2 {
+		margin: 30px auto;
+		.section {
+			width: 100%;
+			margin-right: 0;
+			/* margin-left: 15px;
+			margin-right: 15px; */
+			padding: 15px;
+			margin-top: 0;
+			margin-bottom: 15px;
+
+			&:nth-child(1),
+			&:nth-child(2) {
+				margin-top: 0;
+			}
+
+			&:nth-child(2),
+			&:nth-child(4),
+			&:nth-child(6) {
+				margin-right: 0;
+			}
+		}
+	}
+
+	#skill, #language {
+		& .section-content {
+			.skill-bar {
+				margin-right: 3px;
+				width: calc(100% / 3 - 6px);
+			}
+		}
+	}
+
+	.section-3 {
+		.section {
+			border: 1px solid #f3f3f3;
+		}
+	}
+	#certificate {
+		.max-width {
+			padding: 0	;
+		}
+		& .section-content-wrapper {
+			padding: 0;
+			& .section-content {
+				padding: 0;
+				width: 100%;
+				/* border-bottom: 0; */
+				padding-bottom: 15px;
+				padding-top: 15px;
+
+				&:first-child {
+					padding-top: 0;
+				}
+
+				&:last-child {
+					border-bottom: 0;
+				}
+
+				.left {
+					width: 100%;
+					max-width: 500px;
+					margin-right: auto;
+					margin-left: auto;
+				}
+
+				.right {
+					width: 100%;
+					text-align: center;
+					margin-top: 15px;
+				}
+			}
+		}
+	}
+
+	#project {
+		padding: 0;
+		.max-width {
+			padding: 0;
+		}
+		.section-title {
+			margin-top: 30px;
+		}
+
+		.section-content-wrapper {
+			padding: 0;
+
+			.section-content {
+				width: 100%;
+				margin-right: 0;
+				margin-bottom: 30px;
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+
+	#contact {
+		.section-content {
+			padding: 15px 0;
+		}
+	}
+}
