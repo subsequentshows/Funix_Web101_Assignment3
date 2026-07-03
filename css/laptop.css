@@ -1,3 +1,4 @@
+/* ===== RESET CƠ BẢN ===== */
 * {
 	margin: 0;
 	padding: 0;
@@ -18,16 +19,17 @@ html:focus-within {
 }
 
 ol, ul {
-    padding-left: 0 !important;
+    padding-left: 0 !important; /* !important để override list-style-padding mặc định của browser/framework khác có thể đang ghi đè */
 }
 
 p {
 	font-size: 16px;
 	line-height: 1.4;
-	margin-bottom: 0 !important;
+	margin-bottom: 0 !important; /* ép margin-bottom = 0 vì layout dùng padding/margin riêng để canh khoảng cách, tránh xung đột với margin mặc định của thẻ p */
 	display: block;
 }
 
+/* ===== KHUNG CV TỔNG ===== */
 .cv-page {
 	outline: 0;
 	font-weight: inherit;
@@ -39,22 +41,23 @@ p {
 	margin: 0 auto;
 	box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 	background-color: #fff;
-	position: relative;
+	position: relative; /* làm điểm neo (containing block) cho các phần tử con dùng position: absolute bên trong, ví dụ .input-wrapper */
 }
 
+/* ===== BANNER ĐẦU TRANG ===== */
 .banner {
 	min-height: 600px;
 	background-image: url(../images/banner.jpg);
 	background-size: cover;
 	background-repeat: no-repeat;
-	background-position: 50% 2%;
+	background-position: 50% 2%; /* lệch vùng hiển thị ảnh lên gần đỉnh (2% từ top) để focus đúng chủ thể trong ảnh */
 	width: 100%;
 	position: relative;
 
 	.banner-text {
 		padding-top: 150px;
 		text-align: center;
-		z-index: 9;
+		z-index: 9; /* đảm bảo text nổi lên trên nếu sau này có overlay/pseudo-element phủ lên banner */
 
 		h2 {
 			color: #fff;
@@ -76,6 +79,7 @@ p {
 	width: 100%;
 }
 
+/* ===== NAV BAR (desktop: 1 hàng ngang) ===== */
 .nav-bar {
 	display: flex;
 	flex-wrap: nowrap;
@@ -83,13 +87,13 @@ p {
 	justify-content: center;
 	height: 80px;
 	max-width: unset;
-	margin-top: 0;
-	margin-right: 0;
-	margin-left: 0;
-	margin-bottom: 30px;
+	margin-top: 0 !important;
+	margin-right: 0 !important;
+	margin-left: 0 !important;
+	margin-bottom: 30px !important;
 
 	.nav-item {
-		/* width: 20%; */
+		/* width: 20%; - đã tắt, để flex tự chia đều width theo số lượng item thay vì fix cứng % */
 		padding: 0 30px;
 		height: 100%;
 		display: flex;
@@ -97,15 +101,16 @@ p {
 		align-content: center;
 		justify-content: center;
 		border-right: 1px solid #333;
-		        border-bottom: 1px solid #333;
+        border-bottom: 1px solid #333;
 		transition: ease-in-out 0.3s;
 
+		/* item đầu tiên cần thêm border-left vì các item khác đã có border-right liền kề nhau tạo viền, riêng item đầu thiếu viền trái */
 		&:nth-child(1) {
 			border-left: 1px solid #333;
 		}
 
 		&:nth-child(3) {
-			/* width: 40%; */
+			/* width: 40%; - từng được dùng để cho item thứ 3 (có thể là logo/tên) to hơn các item khác, hiện đã tắt */
 		}
 
 		i {
@@ -143,13 +148,14 @@ p {
 	}
 }
 
+/* ===== SECTION-1: khối info + target (banner thông tin cá nhân / mục tiêu nghề nghiệp) ===== */
 .section-1 {
 	display: flex;
 	flex-wrap: wrap;
-	/* width: 100%; */
+	/* width: 100%; - đã có ở rule dùng chung .nav-bar, .section-1... phía trên nên tắt ở đây để tránh trùng lặp */
 
 	.section {
-		/* width: 50%; */
+		/* width: 50%; - từng dùng để chia 2 cột info/target, hiện tắt -> để mặc định full width hoặc do .section khác quyết định */
 		padding: 50px;
 	}
 
@@ -157,12 +163,12 @@ p {
 		display: flex;
 		flex-wrap: wrap;
 		background-color: #ccc;
-		position: relative;
+		position: relative; /* làm containing block cho .input-wrapper (position: absolute) phủ kín toàn bộ #info */
 
 		.input-wrapper {
 			height: 100%;
 			width: 100%;
-			z-index: 99;
+			z-index: 99; /* đảm bảo form input luôn nổi trên cùng, không bị các phần tử khác trong #info che mất */
 			position: absolute;
 			top: 0;
 			left: 0;
@@ -194,7 +200,7 @@ p {
 
 		.error {
 			color: rgb(190, 34, 34);
-			display: none;
+			display: none; /* mặc định ẩn, chỉ hiện khi JS validate form lỗi và toggle display */
 			margin-top: 0;
 		}
 
@@ -213,9 +219,10 @@ p {
 			margin-top: 0;
 		}
 
+		/* head-section: phần header chứa avatar + thông tin liên hệ, hiện đang ẩn (display: none) - có thể dùng cho phiên bản layout khác hoặc chưa active */
 		.head-section {
 			text-align: left;
-			width: calc(100% - 150px);
+			width: calc(100% - 150px); /* trừ đi đúng bằng width của .head-avatar (150px) để 2 khối nằm cạnh nhau vừa khít */
 			display: none;
 
 			.top-contents {
@@ -251,7 +258,7 @@ p {
 		}
 
 		.head-avatar {
-			width: 150px;
+			width: 150px; /* khớp với phép tính calc(100% - 150px) ở .head-section */
 
 			img {
 				width: 100%;
@@ -270,6 +277,7 @@ p {
 	}
 }
 
+/* ===== SECTION-2: lưới các card (kỹ năng/kinh nghiệm...) chia 3 cột ===== */
 .section-2 {
 	display: flex;
 	flex-wrap: wrap;
@@ -279,12 +287,10 @@ p {
 	margin-top: 50px;
 
 	.section {
-		width: calc(100% / 3 - 30px);
+		width: calc(100% / 3 - 30px); /* chia đều 3 cột, trừ phần gap để không bị tràn hàng */
 		
 		border: 1px solid #f3f3f3;
 		padding: 30px;
-
-		
 
 		.title-wrapper {
 			display: flex;
@@ -298,7 +304,7 @@ p {
 			}
 
 			i {
-				width: 25%;
+				width: 25%; /* icon chiếm 25% còn lại, cộng với h2 75% vừa đủ 1 hàng */
 				font-size: 28px;
 				text-align: center;
 			}
@@ -320,13 +326,12 @@ p {
 				font-weight: normal;
 				line-height: 1.2;
 				margin-bottom: 10px;
-				position: relative;
+				position: relative; /* chuẩn bị làm điểm neo cho pseudo-element ::after (chấm tròn) ở #education/#experience/#activity bên dưới */
 			}
 
 			.date-range {
 				font-size: 15px;
-				margin-bottom: 15px !important;
-				
+				margin-bottom: 15px !important; /* override margin-bottom mặc định của .date-range nếu có rule khác ghi đè (đảm bảo khoảng cách luôn đúng) */
 
 				span {
 					padding: 10px;
@@ -347,10 +352,9 @@ p {
 			}
 		}
 	}
-
-
 }
 
+/* ===== EDUCATION ===== */
 #education {
 	.section-content {
 		padding-top: 15px;
@@ -365,7 +369,7 @@ p {
 		.right {
 			font-weight: 600;
 			font-size: 16px;
-			width: calc(100% - 250px);
+			width: calc(100% - 250px); /* trừ đúng width .left (150px) + margin-right (100px) để 2 cột vừa khít, không tràn dòng */
 
 			p {
 				font-weight: 400;
@@ -374,9 +378,10 @@ p {
 	}
 }
 
+/* ===== EXPERIENCE ===== */
 #experience {
 	.section-content {
-		/* display: flex; */
+		/* display: flex; - đã tắt, có thể do .left/.right tự float hoặc đã dùng display khác từ class cha */
 		flex-wrap: wrap;
 		padding-top: 15px;
 		padding-bottom: 15px;
@@ -390,7 +395,7 @@ p {
 		.right {
 			font-weight: 600;
 			font-size: 16px;
-			width: calc(100% - 250px);
+			width: calc(100% - 250px); /* tương tự #education: khớp với width .left + margin-right */
 
 			p {
 				font-weight: 400;
@@ -404,6 +409,7 @@ p {
 	}
 }
 
+/* Chấm tròn (bullet point) đặt bên trái tiêu đề h3, dùng position absolute neo theo h3 (position: relative ở trên) */
 #education,
 #experience,
 #activity {
@@ -422,10 +428,11 @@ p {
 	}
 }
 
+/* ===== SKILL / LANGUAGE: thanh kỹ năng chia 3 cột/hàng ===== */
 #skill,
 #language {
 	.section-content {
-		display: block;
+		/* display: unset; */
 		padding: 0;
 
 		h3 {
@@ -438,10 +445,10 @@ p {
 			display: inline-block;
 			height: 2px;
 			margin-right: 10px;
-			width: calc(100% / 3 - 10px);
+			width: calc(100% / 3 - 10px); /* 3 thanh/hàng, trừ margin-right để không bị tràn dòng */
 
 			&:nth-child(3) {
-				margin-right: 0;
+				margin-right: 0; /* thanh cuối cùng trong hàng không cần margin-right */
 			}
 		}
 	}
@@ -456,6 +463,7 @@ p {
 	}
 }
 
+/* ===== CERTIFICATE: danh sách chứng chỉ, layout 2 cột mỗi hàng (50% width) ===== */
 #certificate {
 	.max-width {
 		padding: 50px 0;
@@ -471,12 +479,17 @@ p {
 			display: flex;
 			flex-wrap: wrap;
 			padding-bottom: 30px;
-			width: 50%;
+			width: 50%; /* 2 item/hàng */
 			border-bottom: 1px solid gold;
 
+			/* Ở màn hình lớn (>=1024px): item thứ 3 và 4 là hàng cuối cùng của lưới 2 cột
+			   nên bỏ border-bottom và đổi padding để không có khoảng trống thừa phía dưới */
 			@media (min-width: 1024px) {
 				&:nth-child(3),
 				:nth-child(4) {
+					/* lưu ý: thiếu dấu & trước :nth-child(4) - đây có thể là lỗi gõ thiếu,
+					   khiến selector này thực chất target nth-child(4) của MỌI thẻ con descendant
+					   thay vì chính .section-content thứ 4 */
 					border-bottom: none;
 					padding-top: 30px;
 					padding-bottom: 0;
@@ -500,7 +513,7 @@ p {
 			.right {
 				font-weight: 400;
 				font-size: 16px;
-				width: calc(100% - 330px);
+				width: calc(100% - 330px); /* trừ đúng width .left (300px) + margin-right (30px) */
 
 				h3 {
 					font-weight: 400;
@@ -516,7 +529,8 @@ p {
 	}
 }
 
-/* #certificate {
+/* code cũ bị tắt - bản dự phòng cho .left full width (có thể dùng khi cần ảnh certificate chiếm full thay vì 300px cố định)
+#certificate {
 	.left {
 		width: 100%;
 
@@ -527,8 +541,10 @@ p {
 			
 		}
 	}
-} */
+}
+*/
 
+/* ===== HOBBY ===== */
 #hobby {
 	list-style-type: circle;
 
@@ -537,7 +553,7 @@ p {
 		font-size: 16px;
 	}
 
-	.section-content {
+	.section-content-inner {
 		padding-left: 0;
 		display: flex;
 		flex-wrap: wrap;
@@ -561,19 +577,20 @@ p {
 	}
 }
 
+/* ===== PROJECT: lưới 3 cột, mỗi card gồm ảnh + tiêu đề + info ===== */
 #project {
 	.section-content-wrapper {
 		/* display: flex;
-		flex-wrap: wrap; */
+		flex-wrap: wrap; - đã tắt, thay bằng gap nên có thể container cha đã set display: flex/grid sẵn từ chỗ khác */
 		gap:15px;
 
 		.section-content {
-			 width: calc(100% / 3 - 10px);
-			/* margin-right: 30px; */
+			 width: calc(100% / 3 - 10px); /* 3 cột/hàng, trừ phần gap */
+			/* margin-right: 30px; - đã tắt, thay bằng gap ở wrapper cha nên không cần margin-right thủ công nữa */
 			padding: 0;
 
 			&:nth-child(3) {
-				margin-right: 0;
+				margin-right: 0; /* dư thừa vì margin-right đã bị tắt ở trên, giữ lại phòng khi bật lại margin-right sau này */
 			}
 
 			.project-img {
@@ -581,13 +598,13 @@ p {
 				height: auto;
 				border-top: 1px solid #333;
 				border-left: 1px solid #333;
-				border-right: 1px solid #333;
+				border-right: 1px solid #333; /* không có border-bottom vì phần dưới nối liền với .project-content (có border-top riêng) */
 
 				img {
 					width: 100%;
 					height: 100%;
 					object-fit: cover;
-					vertical-align: middle;
+					vertical-align: middle; /* xử lý khoảng trắng thừa dưới ảnh do hành vi mặc định của inline image */
 				}
 			}
 
@@ -601,7 +618,7 @@ p {
 					border-bottom: 1px solid rgb(90, 90, 90);
 
 					@media (min-width: 1200px) {
-						font-size: 1.25rem;
+						font-size: 1.25rem; /* tăng nhẹ font-size trên màn hình lớn để dễ đọc hơn */
 					}
 				}
 			}
@@ -642,6 +659,7 @@ p {
 	}
 }
 
+/* ===== CONTACT ===== */
 #contact {
 	background-color: #f3f3f3;
 	margin-top: 50px;
@@ -670,7 +688,7 @@ p {
 			align-items: center;
 
 			&:nth-child(3) {
-				margin-right: 0;
+				margin-right: 0; /* social cuối cùng (giả định có 3 social) không cần margin-right */
 			}
 
 			i {
@@ -688,6 +706,7 @@ p {
 	}
 }
 
+/* ===== Style dự phòng cho phiên bản "resume" khác (có vẻ không dùng chung layout .cv-page ở trên) ===== */
 .cv-document {
 	box-sizing: border-box;
 	border: none;
@@ -712,53 +731,66 @@ p {
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Desktop lớn (>=1200px): tạo khoảng cách ngang giữa cột 1-2 và cột 2-3 trong lưới .section-2 (3 cột) */
 @media (min-width: 1200px) {
     .section-2 .section:first-child, .section-2 .section:nth-child(2) {
 		margin-right: 45px;
 	}
-	
 }
 
+/* Tablet trở xuống (<1024px): bỏ position absolute của input-wrapper để form không bị che/lệch khi không đủ không gian như desktop */
 @media (max-width: 1023px) {
 	.section-1 {
-    & #info {
-        .input-wrapper {
-			position: unset;
-			padding : 15px   15px;
-		}
-	}
-}
-}
-
-/* @media (min-width: 1200x) {
-	.section-2  {
-		.section:first-child {
-			margin-right: 45px;
-
-			&:nth-child(1),
-			&:nth-child(2) {
-				margin-right: 45px;
-			}
-			
-			&:nth-child(3),
-			&:nth-child(6) {
-				margin-right: 0 !important;
-			}
-
-			&:nth-child(1),
-			&:nth-child(2),
-			&:nth-child(3) {
-				margin-bottom: 45px;
+		& #info {
+			.input-wrapper {
+				position: unset;
+				padding : 15px   15px;
 			}
 		}
 	}
+}
 
-	.section-2 {
-    .section {
-        &:nth-child(1),
-			&:nth-child(2) {
-				margin-right: 45px;
-			}
+/* ── Toggle sections: ẩn content mặc định ── */
+    .toggleable-section .section-content,
+    .toggleable-section .section-content-inner {
+      display: none;
     }
-}
-} */
+
+    /* ── Nút View More / View Less ── */
+    .view-btn {
+      display: none;           /* ẩn mặc định, hiện khi hover */
+      margin-top: 12px;
+	  margin-left:auto;
+	  margin-right:auto;
+      padding: 6px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      background-color: #e87722;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .view-btn:hover {
+      background-color: #c9650f;
+    }
+
+    /* ── Hover effect trên card ── */
+    /* .toggleable-section {
+      transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+      cursor: default;
+    }
+    .toggleable-section:hover {
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+      transform: translateY(-3px);
+      border-color: #e87722 !important;
+    } */
+    /* Khi hover thì hiện nút */
+    .toggleable-section:hover .view-btn {
+      display: inline-block;
+    }
+    /* Nếu đã expanded thì luôn hiện nút dù không hover */
+    .toggleable-section.expanded .view-btn {
+      display: inline-block;
+    }

@@ -1,12 +1,13 @@
 @media (min-width: 320px) and (max-width: 519px) {
 
+	/* Nav bar: chuyển từ hàng ngang sang xếp dọc (wrap) khi màn hình nhỏ */
 	.nav-bar {
-		height: unset;
+		height: unset; /* bỏ height cố định để item tự co giãn theo nội dung */
 		flex-wrap: wrap;
 		border-bottom: 1px solid #333;
 
 		.nav-item {
-			width: 100%;
+			width: 100%; /* mỗi item chiếm full width, xếp thành 1 cột */
 			padding: 15px;
 			justify-content: flex-start;
 			border: none;
@@ -15,11 +16,13 @@
 				border: none;
 			}
 
+			/* Ẩn item thứ 3 trên mobile (có thể là item ít quan trọng, ví dụ "Resume"/"Portfolio") */
 			&:nth-child(3) {
 				display: none;
 			}
 
-			/* i {
+			/* code cũ bị comment - dự phòng style cho icon trong nav-item nếu cần bật lại sau này
+			i {
 				width: 100%;
 				text-align: center;
 				margin-bottom: 5px;
@@ -30,13 +33,12 @@
 	.section-1 {
     	#info {
 			.input-wrapper {
-				position: unset;
+				position: unset; /* huỷ position: absolute/relative ở desktop để input không bị lệch trên mobile */
 				padding : 0;
 			}
 		}
 	}
 	
-
 	.section {
 		padding : 15px;
 		.section-title {
@@ -54,29 +56,33 @@
 
 	.section-1 {
 		.section {
-			width: 100%;
+			width: 100%; /* full width thay vì chia cột như desktop */
 			padding: 15px;
 		}
-
-		
 	}
 
+	/* Section-2: các card vốn chia layout nhiều cột ở desktop (nth-child 1-6),
+	   trên mobile gom hết về full width, bỏ margin-right giữa các cột */
 	.section-2 {
 		margin: 30px auto;
 		.section {
 			width: 100%;
 			margin-right: 0;
-			/* margin-left: 15px;
+			/* margin-left/right 15px - bản desktop, comment lại vì mobile đã full width nên không cần margin 2 bên
+			margin-left: 15px;
 			margin-right: 15px; */
 			padding: 15px;
 			margin-top: 0;
 			margin-bottom: 15px;
 
+			/* reset margin-top cho 2 item đầu (hàng đầu tiên ở layout desktop) */
 			&:nth-child(1),
 			&:nth-child(2) {
 				margin-top: 0;
 			}
 
+			/* các item này ở desktop là cột cuối hàng (margin-right: 0 sẵn) -
+			   giữ lại để đồng bộ, dù trên mobile margin-right đã = 0 ở trên rồi */
 			&:nth-child(2),
 			&:nth-child(4),
 			&:nth-child(6) {
@@ -85,20 +91,23 @@
 		}
 	}
 
+	/* Skill bar: desktop chia nhiều cột, mobile ép về 3 cột/hàng */
 	#skill, #language {
 		& .section-content {
 			.skill-bar {
 				margin-right: 3px;
-				width: calc(100% / 3 - 6px);
+				width: calc(100% / 3 - 6px); /* chia đều 3 item/hàng, trừ đi phần margin-right cộng dồn */
 			}
 		}
 	}
 
 	.section-3 {
 		.section {
-			border: 1px solid #f3f3f3;
+			border: 1px solid #f3f3f3; /* thêm viền nhẹ để phân tách card khi width full 100% không còn gap rõ ràng */
 		}
 	}
+
+	/* Certificate: layout 2 cột (left/right) ở desktop -> xếp chồng dọc trên mobile */
 	#certificate {
 		.max-width {
 			padding: 0	;
@@ -108,34 +117,35 @@
 			& .section-content {
 				padding: 0;
 				width: 100%;
-				/* border-bottom: 0; */
+				/* border-bottom: 0; - giữ border-bottom mặc định để phân tách từng certificate trên mobile */
 				padding-bottom: 15px;
 				padding-top: 15px;
 
 				&:first-child {
-					padding-top: 0;
+					padding-top: 0; /* item đầu sát mép trên, không cần khoảng trống thừa */
 				}
 
 				&:last-child {
-					border-bottom: 0;
+					border-bottom: 0; /* item cuối không cần border phân cách nữa */
 				}
 
 				.left {
 					width: 100%;
-					max-width: 500px;
+					max-width: 500px; /* giới hạn để ảnh/nội dung không bị quá to trên màn hình rộng hơn trong range này */
 					margin-right: auto;
-					margin-left: auto;
+					margin-left: auto; /* căn giữa */
 				}
 
 				.right {
 					width: 100%;
 					text-align: center;
-					margin-top: 15px;
+					margin-top: 15px; /* tạo khoảng cách với .left vì giờ xếp chồng dọc */
 				}
 			}
 		}
 	}
 
+	/* Project: bỏ toàn bộ padding 2 bên để section chiếm full width màn hình mobile */
 	#project {
 		padding: 0;
 		.max-width {
@@ -154,7 +164,7 @@
 				margin-bottom: 30px;
 
 				&:last-child {
-					margin-bottom: 0;
+					margin-bottom: 0; /* item cuối không cần margin-bottom thừa */
 				}
 			}
 		}
@@ -162,7 +172,7 @@
 
 	#contact {
 		.section-content {
-			padding: 15px 0;
+			padding: 15px 0; /* padding trên/dưới, bỏ padding 2 bên vì đã full width */
 		}
 	}
 }

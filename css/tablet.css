@@ -1,10 +1,13 @@
+/* ===== BREAKPOINT: 520px - 767px (mobile lớn / tablet nhỏ, layout vẫn 3 cột ở section-2) ===== */
 @media (min-width: 520px) and (max-width: 767px) {
+
+	/* Đổi date-range span từ inline sang block, giới hạn width và canh giữa text
+	   -> tránh trường hợp span quá dài làm vỡ layout card trên màn hình tầm trung */
 	.section-2 {
 		& .section {
 			& .section-content {
 				& .date-range {
 					span {
-						
 						display: block;
 						max-width: 80px;
 						text-align: center;
@@ -14,25 +17,31 @@
 		}
 	}
 
+	/* Giảm font-size tiêu đề section so với desktop (28px) để phù hợp màn hình nhỏ hơn */
 	.section {
-    .section-title {
-        font-size: 22px;
-        line-height: 1.2;
-    }
-}
+		.section-title {
+			font-size: 22px;
+			line-height: 1.2;
+		}
+	}
 }
 
 
+/* ===== BREAKPOINT: 520px - 1023px (tablet: nav-bar chia 4 cột, section-2 chia 2 cột) ===== */
 @media (min-width: 520px) and (max-width: 1023px) {
 	.nav-bar {
 		.nav-item {
-			width: 25%;
+			width: 25%; /* chia đều 4 item/hàng (khác hẳn mobile <520px là full width 1 cột, và desktop là tự co theo flex) */
 			padding: 15px;
 
+			/* vẫn ẩn item thứ 3 giống bản mobile nhỏ, dù đã set width 25% -
+			   nghĩa là chỉ còn 3 item hiển thị nhưng mỗi item vẫn chiếm 25% (không tự co giãn lại để lấp khoảng trống của item bị ẩn) */
 			&:nth-child(3) {
 				display: none;
 			}
 
+			/* kích hoạt lại style cho icon (trước đó bị comment ở bản <520px) -
+			   icon xuống dòng riêng, full width, canh giữa phía trên text */
 			i {
 				width: 100%;
 				text-align: center;
@@ -51,31 +60,35 @@
 	#target,
 	#info {
 		.section-title {
-			padding: 0;
+			padding: 0; /* override lại padding 0 15px ở rule .section-title chung phía trên, vì #target/#info đã có padding riêng từ .section (padding: 50px) nên không cần thêm padding ngang cho title */
 		}
 	}
 
 	.section-1 {
 		.section {
-			width: 100%;
+			width: 100%; /* info/target xếp chồng dọc, full width thay vì chia cột */
 			padding: 15px;
 		}
 	}
 
+	/* section-2: chuyển từ 3 cột (desktop) sang 2 cột trên tablet */
 	.section-2 {
-		margin-top: 30px !important;
+		margin-top: 30px !important; /* override margin-top: 50px ở rule gốc, !important vì rule gốc khá cụ thể (đã set cả margin: 50px auto lẫn margin-top: 50px) nên cần ép mạnh tay hơn */
 
 		.section {
-			width: calc(100% / 2 - 10px);
+			width: calc(100% / 2 - 10px); /* 2 cột/hàng, trừ gap */
 			margin-right: 20px;
 			padding: 15px;
 			margin-top: 15px;
 
+			/* 2 item đầu tiên là hàng đầu của lưới 2 cột -> không cần margin-top */
 			&:nth-child(1),
 			&:nth-child(2) {
 				margin-top: 0;
 			}
 
+			/* các item ở vị trí cột phải trong lưới 2 cột (giả định tối đa 6 item, chia thành 3 hàng x 2 cột)
+			   -> bỏ margin-right vì là item cuối hàng */
 			&:nth-child(2),
 			&:nth-child(4),
 			&:nth-child(6) {
@@ -84,27 +97,31 @@
 		}
 	}
 
+	/* certificate: layout 2 cột với padding canh trái/phải xen kẽ kiểu "so le" giữa cột trái và cột phải */
 	#certificate {
 		& .section-content-wrapper {
 			& .section-content {
-				padding: 15px 7.5px 0 15px;
+				padding: 15px 7.5px 0 15px; /* mặc định: cột trái (lẻ) - padding-left 15px, padding-right 7.5px (chừa nửa gap cho item bên cạnh) */
 
+				/* item chẵn = cột phải -> đảo padding-left/right để 2 cột có khoảng cách đều nhau ở giữa (7.5px + 7.5px = 15px gap) */
 				&:nth-child(even) {
 					padding: 0 15px 0 7.5px;
 				}
 
+				/* 2 item đầu là hàng đầu tiên của lưới -> không cần padding-top, nhưng vẫn giữ padding-bottom để cách hàng dưới */
 				&:nth-child(1),
 				&:nth-child(2) {
 					padding-bottom: 15px;
 					padding-top: 0;
 				}
 
+				/* item thứ 3: trường hợp đặc biệt (có thể là item cuối cùng nếu tổng chỉ có 3-4 item) -> bỏ border-bottom phân cách */
 				&:nth-child(3) {
 					border-bottom: 0;
 				}
 
 				.left {
-					width: 100%;
+					width: 100%; /* ảnh/left full width, xếp trên .right thay vì cạnh nhau như desktop */
 					margin-right: 0;
 				}
 
@@ -115,19 +132,21 @@
 		}
 	}
 
+	/* project: chuyển từ 3 cột sang 2 cột */
 	#project {
 		.section-title {
 			margin-top: 30px;
 		}
 
 		.section-content-wrapper {
-			gap: 0;
+			gap: 0; /* tắt gap mặc định, dùng margin-right thủ công bên dưới thay thế để dễ kiểm soát item cuối hàng */
 
 			.section-content {
 				width: calc(100% / 2 - 10px);
 				margin-right: 15px;
 
-
+				/* item thứ 2 là cột phải trong lưới 2 cột -> bỏ margin-right
+				   (lưu ý: nếu có nhiều hơn 2 item, item thứ 4, 6... sẽ vẫn bị dính margin-right vì chỉ check nth-child(2)) */
 				&:nth-child(2) {
 					margin-right: 0;
 				}
@@ -135,17 +154,23 @@
 		}
 	}
 
+	/* skill-bar: width calc(100%/3 - 10px) giống hệt giá trị mặc định ở style gốc (ngoài media query)
+	   -> rule này có vẻ dư thừa/không cần thiết, có thể giữ lại để dễ chỉnh sửa riêng cho breakpoint này sau này */
 	#skill, #language {
-    & .section-content {
-        .skill-bar {
-            
-            width: calc(100% / 3 - 10px);
-        }
-    }
-}
+		& .section-content {
+			.skill-bar {
+				width: calc(100% / 3 - 10px);
+			}
+		}
+	}
 }
 
+
+/* ===== BREAKPOINT: 1024px - 1199px (gần desktop nhưng chưa đủ rộng cho 3 cột) ===== */
 @media (min-width: 1024px) and (max-width: 1199px) {
+	/* section-2: vẫn 2 cột như bản tablet, nhưng khác ở chỗ có thêm margin-bottom
+	   (bản 520-1023px không có margin-bottom, dựa vào margin-top của hàng sau để tạo khoảng cách;
+	   ở đây thêm margin-bottom 15px nữa - có thể để xử lý trường hợp số item lẻ/layout khác) */
 	.section-2 {
 		.section {
 			width: calc(100% / 2 - 10px);
@@ -168,9 +193,11 @@
 	}
 }
 
+
+/* ===== BREAKPOINT: 320px - 767px (mobile + mobile lớn): reset margin cho class .row (thường là class lưới kiểu Bootstrap) ===== */
 @media (min-width: 320px) and (max-width: 767px) {
 	.row {
-		margin-left: 0 !important;
+		margin-left: 0 !important; /* !important để ép override margin âm mặc định của .row (kiểu Bootstrap thường có margin: 0 -15px), tránh tràn ngang (horizontal scroll) trên màn hình nhỏ */
 		margin-right: 0 !important;
 	}
 }
