@@ -100,17 +100,13 @@ p {
 		flex-wrap: wrap;
 		align-content: center;
 		justify-content: center;
-		border-right: 1px solid #333;
-        border-bottom: 1px solid #333;
+		border-right: 1px solid #c0c0c0;
+        border-bottom: 1px solid #c0c0c0;
 		transition: ease-in-out 0.3s;
 
 		/* item đầu tiên cần thêm border-left vì các item khác đã có border-right liền kề nhau tạo viền, riêng item đầu thiếu viền trái */
 		&:nth-child(1) {
-			border-left: 1px solid #333;
-		}
-
-		&:nth-child(3) {
-			/* width: 40%; - từng được dùng để cho item thứ 3 (có thể là logo/tên) to hơn các item khác, hiện đã tắt */
+			border-left: 1px solid #c0c0c0;
 		}
 
 		i {
@@ -748,49 +744,58 @@ p {
 			}
 		}
 	}
-}
+}.section-2
 
 /* ── Toggle sections: ẩn content mặc định ── */
     .toggleable-section .section-content,
     .toggleable-section .section-content-inner {
       display: none;
+	  /* opacity: 0; */
     }
+
+	.toggleable-section.expanded .view-btn {
+		&::before {
+			transform: rotate(180deg); /* xoay icon mũi tên xuống thành mũi tên lên khi expanded */
+			margin: 3.5px 5px 0px 0px;
+		}
+	}
 
     /* ── Nút View More / View Less ── */
     .view-btn {
-      display: none;           /* ẩn mặc định, hiện khi hover */
-      margin-top: 12px;
+      opacity: 0;         /* ẩn mặc định, hiện khi hover */
 	  margin-left:auto;
 	  margin-right:auto;
       padding: 6px 18px;
       font-size: 13px;
       font-weight: 600;
-      color: #fff;
-      background-color: #e87722;
+      color: black;
+      background-color: #e2e468;
       border: none;
       border-radius: 4px;
       cursor: pointer;
       transition: background-color 0.2s;
+	  position: relative;
+
+	  &::before {
+        content: "";
+		background-image: url("../images/down.png");
+		background-size: contain;
+		background-repeat: no-repeat;
+        width: 8px;
+        height: 10px;
+        float: left;
+        margin: 5px 5px 0px 0px;
+	  }
     }
     .view-btn:hover {
-      background-color: #c9650f;
+      background-color: #e2e468;
     }
 
-    /* ── Hover effect trên card ── */
-    /* .toggleable-section {
-      transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
-      cursor: default;
-    }
-    .toggleable-section:hover {
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
-      transform: translateY(-3px);
-      border-color: #e87722 !important;
-    } */
     /* Khi hover thì hiện nút */
     .toggleable-section:hover .view-btn {
-      display: inline-block;
+      opacity: 1;
     }
     /* Nếu đã expanded thì luôn hiện nút dù không hover */
     .toggleable-section.expanded .view-btn {
-      display: inline-block;
+      opacity: 1;
     }
